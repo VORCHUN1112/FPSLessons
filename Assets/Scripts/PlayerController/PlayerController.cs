@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 	private PlayerMover _playerMover;
 	//private WeaponChanger _weaponChanger;
 
-	//[SerializeField] private WeaponHolder _holder;
+	[SerializeField] private WeaponHolder _holder;
 	
 	private void Awake()
 	{
@@ -33,11 +33,11 @@ public class PlayerController : MonoBehaviour
 	{
 		_inputs.Enable();
 
-		//_player.Aim.performed += context => _holder.currentWeapon.BeginAim();
-		//_player.Aim.canceled += context => _holder.currentWeapon.EndAim();
+		_player.Aim.performed += context => _holder.currentWeapon.BeginAim();
+		_player.Aim.canceled += context => _holder.currentWeapon.EndAim();
 
-		//_player.Attack.performed += context => _holder.currentWeapon.PerformAttack();
-		//_player.Attack.canceled += context => _holder.currentWeapon.StopAttack();
+		_player.Attack.performed += context => _holder.currentWeapon.PerformAttack();
+		_player.Attack.canceled += context => _holder.currentWeapon.StopAttack();
 
 		//_player.PreviousWeapon.performed += context => _weaponChanger.SetPreviousWeapon();
 		//_player.NextWeapon.performed += context => _weaponChanger.SetNextWeapon();
@@ -47,14 +47,14 @@ public class PlayerController : MonoBehaviour
 	{
 		_inputs.Disable();
 
-		/*_player.Aim.performed -= context => _holder.currentWeapon.BeginAim();
+		_player.Aim.performed -= context => _holder.currentWeapon.BeginAim();
 		_player.Aim.canceled -= context => _holder.currentWeapon.EndAim();
 
 		_player.Attack.performed -= context => _holder.currentWeapon.PerformAttack();
 		_player.Attack.canceled -= context => _holder.currentWeapon.StopAttack();
 
-		_player.PreviousWeapon.performed -= context => _weaponChanger.SetPreviousWeapon();
-		_player.NextWeapon.performed -= context => _weaponChanger.SetNextWeapon();*/
+		//_player.PreviousWeapon.performed -= context => _weaponChanger.SetPreviousWeapon();
+		//_player.NextWeapon.performed -= context => _weaponChanger.SetNextWeapon();
 	}
 	
 	private void Update()

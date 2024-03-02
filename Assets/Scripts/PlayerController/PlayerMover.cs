@@ -7,6 +7,9 @@ public class PlayerMover : MonoBehaviour
 	
 	[Header("Player Speed")]
 	[SerializeField] private float _moveSpeed = 10f;
+
+	[Header("Jump Force")]
+	[SerializeField] private float _jumpForce = 10f;
 	
 	[Header("Gravity Settings")]
 	[SerializeField] private float _gravity = -9.81f;
@@ -20,7 +23,7 @@ public class PlayerMover : MonoBehaviour
 
 	private void Update()
 	{
-		bool grounded = Physics.CheckSphere(_groundChecker.position, _groundDistance, _groundMask);
+		bool grounded = IsGrounded();
 			
 		if(!grounded)
 		{
@@ -43,6 +46,15 @@ public class PlayerMover : MonoBehaviour
 		Vector3 motion = transform.TransformDirection(moveDirection);
 		_controller.Move(motion);
 	}
+
+	public void InitialJump()
+	{
+		bool grounded = IsGrounded();
+		if (!grounded) return;
+		
+		_currentVelocity.y += _jumpForce;
+		_controller.Move(_currentVelocity * Time.deltaTime);
+	}
 	
 	private void AffectByGravity()
 	{
@@ -51,4 +63,9 @@ public class PlayerMover : MonoBehaviour
 		_controller.Move(_currentVelocity * Time.deltaTime);
 	}
 	
+	private bool IsGrounded()
+	{
+		bool grounded = Physics.CheckSphere(_groundChecker.position, _groundDistance, _groundMask);
+		return grounded;
+	}
 }

@@ -4,8 +4,8 @@ public class PlayerController : MonoBehaviour
 {
 	private PlayerInputs _inputs;
 	private PlayerInputs.PlayerActions _player;
-	private PlayerLook _playerLook;
 	private PlayerMover _playerMover;
+	private PlayerLook _playerLook;
 	//private WeaponChanger _weaponChanger;
 
 	[SerializeField] private WeaponHolder _holder;
@@ -33,11 +33,13 @@ public class PlayerController : MonoBehaviour
 	{
 		_inputs.Enable();
 
-		_player.Aim.performed += context => _holder.currentWeapon.BeginAim();
-		_player.Aim.canceled += context => _holder.currentWeapon.EndAim();
+		//_player.Aim.performed += context => _holder.currentWeapon.BeginAim();
+		//_player.Aim.canceled += context => _holder.currentWeapon.EndAim();
 
-		_player.Attack.performed += context => _holder.currentWeapon.PerformAttack();
-		_player.Attack.canceled += context => _holder.currentWeapon.StopAttack();
+		//_player.Attack.performed += context => _holder.currentWeapon.PerformAttack();
+		//_player.Attack.canceled += context => _holder.currentWeapon.StopAttack();
+
+		_player.Jump.performed += context => _playerMover.InitialJump();
 
 		//_player.PreviousWeapon.performed += context => _weaponChanger.SetPreviousWeapon();
 		//_player.NextWeapon.performed += context => _weaponChanger.SetNextWeapon();
@@ -47,12 +49,13 @@ public class PlayerController : MonoBehaviour
 	{
 		_inputs.Disable();
 
-		_player.Aim.performed -= context => _holder.currentWeapon.BeginAim();
-		_player.Aim.canceled -= context => _holder.currentWeapon.EndAim();
+		//_player.Aim.performed -= context => _holder.currentWeapon.BeginAim();
+		//_player.Aim.canceled -= context => _holder.currentWeapon.EndAim();
 
-		_player.Attack.performed -= context => _holder.currentWeapon.PerformAttack();
-		_player.Attack.canceled -= context => _holder.currentWeapon.StopAttack();
+		//_player.Attack.performed -= context => _holder.currentWeapon.PerformAttack();
+		//_player.Attack.canceled -= context => _holder.currentWeapon.StopAttack();
 
+		_player.Jump.performed -= context => _playerMover.InitialJump();
 		//_player.PreviousWeapon.performed -= context => _weaponChanger.SetPreviousWeapon();
 		//_player.NextWeapon.performed -= context => _weaponChanger.SetNextWeapon();
 	}
@@ -62,8 +65,8 @@ public class PlayerController : MonoBehaviour
 		Vector2 move = _player.Move.ReadValue<Vector2>();
 		Vector2 look = _player.Look.ReadValue<Vector2>();
 
-		_playerLook.InitialLook(look);
 		_playerMover.InitialMove(move);
+		_playerLook.InitialLook(look);
 	}
 	
 	private void LockCursor()

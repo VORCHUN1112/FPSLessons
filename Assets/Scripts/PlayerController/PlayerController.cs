@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
 		//_player.Aim.performed += context => _holder.currentWeapon.BeginAim();
 		//_player.Aim.canceled += context => _holder.currentWeapon.EndAim();
 
-		//_player.Attack.performed += context => _holder.currentWeapon.PerformAttack();
-		//_player.Attack.canceled += context => _holder.currentWeapon.StopAttack();
+		_player.Attack.performed += context => _holder.currentWeapon.PerformAttack();
+		_player.Attack.canceled += context => _holder.currentWeapon.StopAttack();
 
 		_player.Jump.performed += context => _playerMover.InitialJump();
 
@@ -52,10 +52,11 @@ public class PlayerController : MonoBehaviour
 		//_player.Aim.performed -= context => _holder.currentWeapon.BeginAim();
 		//_player.Aim.canceled -= context => _holder.currentWeapon.EndAim();
 
-		//_player.Attack.performed -= context => _holder.currentWeapon.PerformAttack();
-		//_player.Attack.canceled -= context => _holder.currentWeapon.StopAttack();
+		_player.Attack.performed -= context => _holder.currentWeapon.PerformAttack();
+		_player.Attack.canceled -= context => _holder.currentWeapon.StopAttack();
 
 		_player.Jump.performed -= context => _playerMover.InitialJump();
+		
 		//_player.PreviousWeapon.performed -= context => _weaponChanger.SetPreviousWeapon();
 		//_player.NextWeapon.performed -= context => _weaponChanger.SetNextWeapon();
 	}

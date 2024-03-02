@@ -62,7 +62,6 @@ public class RangedWeapon : MonoBehaviour, IWeapon, IAimable
 			//reaction.ReactOnBasicAttack();
 			PerformRaycast();
 
-			Debug.Log("Выстрел!");
 		}
 	}
 	
